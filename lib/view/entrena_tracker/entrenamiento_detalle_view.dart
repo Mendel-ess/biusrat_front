@@ -25,7 +25,7 @@ class _EntrenamientoDetalleViewState extends State<EntrenamientoDetalleView> {
 
       fetchData() async {
     try {
-      http.Response response = await http.get(Uri.parse(apiEjercicioUrl));
+      http.Response response = await http.get(Uri.parse(apiEje));
       http.Response late = await http.get(Uri.parse(apiLate));
       http.Response you = await http.get(Uri.parse(apiYou));
       if (response.statusCode == 200) {
