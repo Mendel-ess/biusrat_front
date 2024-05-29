@@ -1,0 +1,56 @@
+import 'package:biusrat_app_fitness/common/color.dart';
+import 'package:flutter/material.dart';
+
+class EjerciciosRow extends StatelessWidget {
+  final Map eObj;
+  final VoidCallback onPressed;
+  const EjerciciosRow({super.key, required this.eObj, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: Image.asset(
+              eObj["image"].toString(),
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                eObj["nombre_ejercicio"].toString(),
+                style: TextStyle(color: BColor.black, fontSize: 14, fontWeight: FontWeight.w500),
+              ),
+              Text(
+                eObj["repeticion"].toString(),
+                style: TextStyle(
+                  color: BColor.gray,
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          )),
+          IconButton(
+              onPressed: onPressed,
+              icon: Image.asset(
+                "assets/images/next_go.png",
+                width: 20,
+                height: 20,
+                fit: BoxFit.contain,
+              ))
+        ],
+      ),
+    );
+  }
+}
