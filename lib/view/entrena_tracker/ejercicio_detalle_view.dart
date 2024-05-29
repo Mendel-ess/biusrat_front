@@ -22,7 +22,7 @@ class _EjercicioDetalleViewState extends State<EjercicioDetalleView> {
 
       fetchData() async {
     try {
-      http.Response response = await http.get(Uri.parse(apiEjercicioUrl));
+      http.Response response = await http.get(Uri.parse(apiEje));
       if (response.statusCode == 200) {
         List<dynamic> jsonData = jsonDecode(response.body); 
         for (var item in jsonData) {

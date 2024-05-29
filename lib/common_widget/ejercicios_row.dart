@@ -29,11 +29,11 @@ class EjerciciosRow extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                eObj["nombre_ejercicio"].toString(),
+                eObj["title"].toString(),
                 style: TextStyle(color: BColor.black, fontSize: 14, fontWeight: FontWeight.w500),
               ),
               Text(
-                eObj["repeticion"].toString(),
+                eObj["value"].toString(),
                 style: TextStyle(
                   color: BColor.gray,
                   fontSize: 12,

@@ -30,7 +30,7 @@ class QueEntrenar extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      wObj["tipo_entrenamiento"].toString(),
+                      wObj["title"].toString(),
                       style: TextStyle(
                           color: BColor.black,
                           fontSize: 14,
@@ -40,7 +40,7 @@ class QueEntrenar extends StatelessWidget {
                       height: 4,
                     ),
                     Text(
-                      "${wObj["exercises"].toString()} | ${ wObj["time"].toString() }" ,
+                      "${wObj["exercices"].toString()} | ${ wObj["time"].toString() }" ,
                       style: TextStyle(
                         color: BColor.gray,
                         fontSize: 12,
@@ -53,7 +53,7 @@ class QueEntrenar extends StatelessWidget {
                       width: 100,
                       height: 30,
                       child: RoundBtn(
-                          title: wObj["dificultad"].toString(),
+                          title: "Ver mas",
                           fontSize: 10,
                           type: RoundButtonType.textGradient,
                           elevation:0.05,

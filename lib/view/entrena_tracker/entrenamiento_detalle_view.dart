@@ -34,6 +34,7 @@ class _EntrenamientoDetalleViewState extends State<EntrenamientoDetalleView> {
           data.add(item);
         }
       setState(() {
+        print(data);
         });
       }
       if (late.statusCode == 200) {
@@ -170,14 +171,14 @@ class _EntrenamientoDetalleViewState extends State<EntrenamientoDetalleView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  widget.dObj["tipo_entrenamiento"].toString(),
+                                  widget.dObj["title"].toString(),
                                   style: TextStyle(
                                       color: BColor.black,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700),
                                 ),
                                 Text(
-                                  "${widget.dObj["exercises"].toString()} | ${widget.dObj["time"].toString()} | 320 Calories Burn",
+                                  "${widget.dObj["exercices"].toString()} | ${widget.dObj["time"].toString()} | 320 Calories Burn",
                                   style: TextStyle(
                                       color: BColor.gray, fontSize: 12),
                                 ),
@@ -204,7 +205,6 @@ class _EntrenamientoDetalleViewState extends State<EntrenamientoDetalleView> {
                           time: "5/27, 09:00 AM",
                           color: BColor.primaryColor2.withOpacity(0.3),
                           onPressed: () {
-
                               Navigator.push(context, MaterialPageRoute(builder: (context) => const EntrenamientoHorarioView() )  );
                           }),
                       SizedBox(

@@ -54,7 +54,7 @@ class _HorarioSleepHoyState extends State<HorarioSleepHoy> {
                             fontWeight: FontWeight.w700),
                       ),
                       Text(
-                        ", ${getStringDateToOtherFormate(widget.sObj["time"].toString())}",
+                        widget.sObj["time"].toString(),
                         style: TextStyle(
                           color: BColor.black,
                           fontSize: 12,

@@ -25,13 +25,14 @@ class _EntrenamientoTrackerViewState extends State<EntrenamientoTrackerView> {
         
     try {
     String requestBody = jsonEncode(data);
-      http.Response response = await http.get(Uri.parse(apiWorkoutUrl));
+      http.Response response = await http.get(Uri.parse(apiWhat));
       if (response.statusCode == 200) {
         List<dynamic> jsonData = jsonDecode(response.body); 
         for (var item in jsonData) {
           data.add(item);
         }
       setState(() {
+        print(data);
         });
       }
     } catch (e) {

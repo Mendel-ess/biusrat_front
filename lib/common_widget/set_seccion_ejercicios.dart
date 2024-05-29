@@ -15,7 +15,7 @@ class SetSeccionEjerciciosView extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          sObj["nombre_ejercicio"].toString(),
+          sObj["exercise_set"].toString(),
           style: TextStyle(
               color: BColor.black, fontSize: 12, fontWeight: FontWeight.w500),
         ),
