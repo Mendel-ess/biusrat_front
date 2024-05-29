@@ -20,3 +20,12 @@ const apiAlm = '$apiBaseUrl/alm/';
 const apiCena = '$apiBaseUrl/cena/';
 const apiSnack = '$apiBaseUrl/snack/';
 const apiNutri = '$apiBaseUrl/nutri/';
+const apiNuttri = '$apiBaseUrl/nuttri/';
+const apiIngre = '$apiBaseUrl/ingre/';
+const apiPaso = '$apiBaseUrl/paso/';
+const apiHoy = '$apiBaseUrl/hoy/';
+const apiEvt = '$apiBaseUrl/evt/';
+const apiYou = '$apiBaseUrl/you/';
+const apiLate = '$apiBaseUrl/late/';
+
+ 

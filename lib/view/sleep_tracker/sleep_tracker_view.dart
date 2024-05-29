@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:biusrat_app_fitness/common/color.dart';
 import 'package:biusrat_app_fitness/common_widget/horario_sleep_hoy.dart';
 import 'package:biusrat_app_fitness/common_widget/round_boton.dart';
+import 'package:biusrat_app_fitness/constants/api.dart';
 import 'package:biusrat_app_fitness/view/sleep_tracker/sleep_horario_view.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SleepTrackerView extends StatefulWidget {
   final String correo;
@@ -14,29 +18,40 @@ class SleepTrackerView extends StatefulWidget {
 }
 
 class _SleepTrackerViewState extends State<SleepTrackerView> {
-  List todaySleepArr = [
-    {
-      "name": "Hora de dormir",
-      "image": "assets/images/bed.png",
-      "time": "01/06/2023 09:00 PM",
-      "duration": "in 6hours 22minutes"
-    },
-    {
-      "name": "Alarma",
-      "image": "assets/images/alaarm.png",
-      "time": "02/06/2023 05:10 AM",
-      "duration": "in 14hours 30minutes"
-    },
-  ];
+  List<Map<String, dynamic>> todaySleepArr = [];
+  List<Map<String, dynamic>> findEatArr = [];
+  fetchData() async {
+        
+    try {
+      http.Response hoy = await http.get(Uri.parse(apiHoy));
+      http.Response findeat = await http.get(Uri.parse(apiFindEat));
+      if (hoy.statusCode == 200) {
+        List<dynamic> jsonData = jsonDecode(hoy.body); 
+        for (var item in jsonData) {
+          todaySleepArr.add(item);
+        }
+      setState(() {
+        });
+      }
+      if (findeat.statusCode == 200) {
+        List<dynamic> jsonDat = jsonDecode(findeat.body); 
+        for (var item in jsonDat) {
+          findEatArr.add(item);
+        }
+      setState(() {
+        });
+      }
+    } catch (e) {
+      print('Ha ocurrido el siguiente error: $e');
+    }
+  }
+  
+  @override
+  void initState(){
+    fetchData();
+    super.initState();
+  }
 
-  List findEatArr = [
-    {
-      "name": "Desayuno",
-      "image": "assets/images/m_3.png",
-      "number": "120+ Foods"
-    },
-    {"name": "Almuerzo", "image": "assets/images/m_4.png", "number": "130+ Foods"},
-  ];
 
   List<int> showingTooltipOnSpots = [4];
 

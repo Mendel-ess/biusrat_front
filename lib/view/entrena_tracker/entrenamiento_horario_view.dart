@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:biusrat_app_fitness/common/color.dart';
 import 'package:biusrat_app_fitness/common/common.dart';
 import 'package:biusrat_app_fitness/common_widget/round_boton.dart';
+import 'package:biusrat_app_fitness/constants/api.dart';
 import 'package:biusrat_app_fitness/view/entrena_tracker/add_horario_view.dart';
 import 'package:calendar_agenda/calendar_agenda.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class EntrenamientoHorarioView extends StatefulWidget {
   const EntrenamientoHorarioView({
@@ -15,53 +19,31 @@ class EntrenamientoHorarioView extends StatefulWidget {
 }
 
 class _EntrenamientoHorarioViewState extends State<EntrenamientoHorarioView> {
-  CalendarAgendaController _calendarAgendaControllerAppBar =
-      CalendarAgendaController();
+  CalendarAgendaController _calendarAgendaControllerAppBar = CalendarAgendaController();
   late DateTime _selectedDateAppBBar;
-
-  List eventArr = [
-    {
-      "name": "Ab Workout",
-      "start_time": "25/05/2023 07:30 AM",
-    },
-    {
-      "name": "Upperbody Workout",
-      "start_time": "25/05/2023 09:00 AM",
-    },
-    {
-      "name": "Lowerbody Workout",
-      "start_time": "25/05/2023 03:00 PM",
-    },
-    {
-      "name": "Ab Workout",
-      "start_time": "26/05/2023 07:30 AM",
-    },
-    {
-      "name": "Upperbody Workout",
-      "start_time": "26/05/2023 09:00 AM",
-    },
-    {
-      "name": "Lowerbody Workout",
-      "start_time": "26/05/2023 03:00 PM",
-    },
-    {
-      "name": "Ab Workout",
-      "start_time": "27/05/2023 07:30 AM",
-    },
-    {
-      "name": "Upperbody Workout",
-      "start_time": "27/05/2023 09:00 AM",
-    },
-    {
-      "name": "Lowerbody Workout",
-      "start_time": "27/05/2023 03:00 PM",
+ List<Map<String, dynamic>> eventArr = [];
+  fetchData() async {
+        
+    try {
+      http.Response evt = await http.get(Uri.parse(apiEvt));
+      if (evt.statusCode == 200) {
+        List<dynamic> jsonData = jsonDecode(evt.body); 
+        for (var item in jsonData) {
+          eventArr.add(item);
+        }
+      setState(() {
+        });
+      }
+    } catch (e) {
+      print('Ha ocurrido el siguiente error: $e');
     }
-  ];
-
+  }
+  
   List selectDayEventArr = [];
 
   @override
   void initState() {
+    fetchData();
     super.initState();
     _selectedDateAppBBar = DateTime.now();
     setDayEventWorkoutList();

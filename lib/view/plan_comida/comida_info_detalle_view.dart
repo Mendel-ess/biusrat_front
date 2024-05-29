@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:biusrat_app_fitness/common/color.dart';
 import 'package:biusrat_app_fitness/common_widget/detalle_comida_row.dart';
 import 'package:biusrat_app_fitness/common_widget/round_boton.dart';
+import 'package:biusrat_app_fitness/constants/api.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:readmore/readmore.dart';
 
 class ComidaInfoDetalleView extends StatefulWidget {
@@ -18,44 +22,46 @@ class _ComidaInfoDetalleViewState extends State<ComidaInfoDetalleView> {
     List<Map<String, dynamic>> nutritionArr = [];
     List<Map<String, dynamic>> ingredientsArr = [];
     List<Map<String, dynamic>> stepArr = [];
-
-  List nutritionArr = [
-    {"image": "assets/images/burn.png", "title": "180kCal"},
-    {"image": "assets/images/egg.png", "title": "30g grasas"},
-    {"image": "assets/images/proteins.png", "title": "20g proteinas"},
-    {"image": "assets/images/carbo.png", "title": "50g carbo"},
-  ];
-
-  List ingredientsArr = [
-    {
-      "image": "assets/images/flour.png",
-      "title": "Harina de trigo",
-      "value": "100grm"
-    },
-    {"image": "assets/images/sugar.png", "title": "Sugar", "value": "3 tbsp"},
-    {
-      "image": "assets/images/baking_soda.png",
-      "title": "Bicarbonato",
-      "value": "2tsp"
-    },
-    {"image": "assets/images/eggs.png", "title": "Huevos", "value": "2 items"},
-  ];
-
-  List stepArr = [
-    {"no": "1", "detail": "Prepara todos los ingredientes que necesites"},
-    {"no": "2", "detail": "Mezcla harina,azucar, sal y polvo para hornear"},
-    {
-      "no": "3",
-      "detail":
-          "En un lugar aparte, mezcle los huevos y la leche líquida hasta que se mezclen."
-    },
-    {
-      "no": "4",
-      "detail":
-          "Coloque la mezcla de huevo y leche en los ingredientes secos, revuelva hasta que quede suave y homogéneo."
-    },
-    {"no": "5", "detail": "Prepare todos los ingredientes que necesite"},
-  ];
+ fetchData() async {
+        
+    try {
+      http.Response nuttri = await http.get(Uri.parse(apiNuttri));
+      http.Response ingre = await http.get(Uri.parse(apiIngre));
+      http.Response paso = await http.get(Uri.parse(apiPaso));
+      if (nuttri.statusCode == 200) {
+        List<dynamic> jsonData = jsonDecode(nuttri.body); 
+        for (var item in jsonData) {
+          nutritionArr.add(item);
+        }
+      setState(() {
+        });
+      }
+      if (ingre.statusCode == 200) {
+        List<dynamic> jsonDat = jsonDecode(ingre.body); 
+        for (var item in jsonDat) {
+          ingredientsArr.add(item);
+        }
+      setState(() {
+        });
+      }
+      if (paso.statusCode == 200) {
+        List<dynamic> jsonDa = jsonDecode(paso.body); 
+        for (var item in jsonDa) {
+          stepArr.add(item);
+        }
+      setState(() {
+        });
+      }
+    } catch (e) {
+      print('Ha ocurrido el siguiente error: $e');
+    }
+  }
+  
+  @override
+  void initState(){
+    fetchData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -20,14 +20,34 @@ class EntrenamientoDetalleView extends StatefulWidget {
 
 class _EntrenamientoDetalleViewState extends State<EntrenamientoDetalleView> {
    List<Map<String, dynamic>> data = [];
+   List<Map<String, dynamic>> latestArr = [];
+   List<Map<String, dynamic>> youArr = [];
 
       fetchData() async {
     try {
       http.Response response = await http.get(Uri.parse(apiEjercicioUrl));
+      http.Response late = await http.get(Uri.parse(apiLate));
+      http.Response you = await http.get(Uri.parse(apiYou));
       if (response.statusCode == 200) {
         List<dynamic> jsonData = jsonDecode(response.body); 
         for (var item in jsonData) {
           data.add(item);
+        }
+      setState(() {
+        });
+      }
+      if (late.statusCode == 200) {
+        List<dynamic> jsonData = jsonDecode(late.body); 
+        for (var item in jsonData) {
+          latestArr.add(item);
+        }
+      setState(() {
+        });
+      }
+      if (you.statusCode == 200) {
+        List<dynamic> jsonData = jsonDecode(you.body); 
+        for (var item in jsonData) {
+          youArr.add(item);
         }
       setState(() {
         });
@@ -42,24 +62,7 @@ class _EntrenamientoDetalleViewState extends State<EntrenamientoDetalleView> {
     fetchData();
     super.initState();
   }
-  List latestArr = [
-    {
-      "image": "assets/images/Workout1.png",
-      "title": "Fullbody Workout",
-      "time": "Today, 03:00pm"
-    },
-    {
-      "image": "assets/images/Workout2.png",
-      "title": "Upperbody Workout",
-      "time": "June 05, 02:00pm"
-    },
-  ];
-
-  List youArr = [
-    {"image": "assets/images/barbell.png", "title": "Barbell"},
-    {"image": "assets/images/skipping_rope.png", "title": "Skipping Rope"},
-    {"image": "assets/images/bottle.png", "title": "Bottle 1 Liters"},
-  ];
+ 
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
